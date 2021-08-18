@@ -2,11 +2,11 @@ const Intern = require("../lib/Intern")
 
 describe("Intern", () => {
   const testName = "Yoda";
-  const testEmployeeID = 0;
+  const testId = 0;
   const testEmail = "yoda@example.com";
   const testSchool = "Jedi Academy";
 
-  const result = new Intern(testName, testEmployeeID, testEmail, testSchool);
+  const result = new Intern(testName, testId, testEmail, testSchool);
 
   describe("name", () => {
     it("should properly add the passed testName value to the name key", () => {
@@ -16,7 +16,7 @@ describe("Intern", () => {
 
   describe("employeeID", () => {
     it("should properly add the passed testEmployeeID value to the employeeID key", () => {
-      expect(result.employeeID).toEqual(testEmployeeID);
+      expect(result.id).toEqual(testId);
     });
   });
 

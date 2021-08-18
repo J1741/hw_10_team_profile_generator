@@ -2,11 +2,11 @@ const Engineer = require("../lib/Engineer")
 
 describe("Engineer", () => {
   const testName = "Ben";
-  const testEmployeeID = 1;
+  const testId = 1;
   const testEmail = "ben@example.com";
-  const testGithubUsername = "obiwan1";
+  const testGithub = "obiwan1";
 
-  const result = new Engineer(testName, testEmployeeID, testEmail, testGithubUsername);
+  const result = new Engineer(testName, testId, testEmail, testGithub);
 
   describe("name", () => {
     it("should properly add the passed testName value to the name key", () => {
@@ -16,7 +16,7 @@ describe("Engineer", () => {
 
   describe("employeeID", () => {
     it("should properly add the passed testEmployeeID value to the employeeID key", () => {
-      expect(result.employeeID).toEqual(testEmployeeID);
+      expect(result.id).toEqual(testId);
     });
   });
 
@@ -28,7 +28,7 @@ describe("Engineer", () => {
 
   describe("githubUsername", () => {
     it("should properly add the passed testGithubUsername value to the githubUsername key", () => {
-      expect(result.githubUsername).toEqual(testGithubUsername);
+      expect(result.github).toEqual(testGithub);
     });
   });
 
