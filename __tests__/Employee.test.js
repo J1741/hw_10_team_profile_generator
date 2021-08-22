@@ -4,7 +4,12 @@ describe("Employee", () => {
   const testName = "Luke";
   const testId = 3;
   const testEmail = "luke@example.com";
+
   const result = new Employee(testName, testId, testEmail);
+
+  it("should be an object", () => {
+    expect(typeof result).toBe("object");
+  })
 
   describe("name", () => {
     it("should properly add the testName value to the name key", () => {

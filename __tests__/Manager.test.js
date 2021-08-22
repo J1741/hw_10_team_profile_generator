@@ -8,6 +8,10 @@ describe("Manager", () => {
 
   const result = new Manager(testName, testId, testEmail, testOfficeNumber);
 
+  it("should be an object", () => {
+    expect(typeof result).toBe("object");
+  })
+
   describe("name", () => {
     it("should properly add the passed testName value to the name key", () => {
       expect(result.name).toEqual(testName);

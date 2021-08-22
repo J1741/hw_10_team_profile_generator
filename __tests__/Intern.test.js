@@ -8,6 +8,10 @@ describe("Intern", () => {
 
   const result = new Intern(testName, testId, testEmail, testSchool);
 
+  it("should be an object", () => {
+    expect(typeof result).toBe("object");
+  })
+
   describe("name", () => {
     it("should properly add the passed testName value to the name key", () => {
       expect(result.name).toEqual(testName);
