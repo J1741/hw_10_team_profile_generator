@@ -1,13 +1,13 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-// get access to constructor functions
+// import constructor functions
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-// get access to html generator functions
-const {createManagerCard, createEngineerCard, createInternCard, generatePage} = require("./src/generateHTML");
+// import html generator functions
+const {createManagerCard, createEngineerCard, createInternCard, joinCards, generatePage, writePage} = require("./src/generateHTML");
 
 const teamCards = [];
 
@@ -48,10 +48,6 @@ function getManagerInfo() {
       const newManagerCard = createManagerCard(manager);
       teamCards.push(newManagerCard);
 
-      // console logs to check things
-      console.log("\n----\nHere is the newManagerCard:");
-      console.log(newManagerCard);
-
       // handle next choice is engineer
       if (managerData.nextChoice === "Engineer") {
         console.log("--\nOkay, let's add an engineer:")
@@ -66,9 +62,9 @@ function getManagerInfo() {
 
       // handle next choice is done
       if (managerData.nextChoice === "I am done adding team members") {
-        console.log("\n----\nWe are done adding team members. Here are the team cards:")
-        console.log(teamCards);
-        console.log(`There are ${teamCards.length} members on the team`)
+        console.log("\x1b[36m%s\x1b[0m", `\n----\nYou added ${teamCards.length} team members. Generating team page ...:`)
+        pageContent = generatePage(teamCards);
+        writePage(pageContent);
       }
     });
 } 
@@ -110,10 +106,6 @@ function getEngineerInfo() {
       const newEngineerCard = createEngineerCard(engineer);
       teamCards.push(newEngineerCard);
 
-      // console logs to check things
-      console.log("\n----\nHere is the newEngineerCard:");
-      console.log(newEngineerCard);
-
       // handle next choice is engineer
       if (engineerData.nextChoice === "Engineer") {
         console.log("--\nOkay, let's add an engineer:")
@@ -128,9 +120,9 @@ function getEngineerInfo() {
 
       // handle next choice is done
       if (engineerData.nextChoice === "I am done adding team members") {
-        console.log("\n----\nWe are done adding team members. Here are the team cards:")
-        console.log(teamCards);
-        console.log(`There are ${teamCards.length} members on the team`)
+        console.log("\x1b[36m%s\x1b[0m", `\n----\nYou added ${teamCards.length} team members. Generating team page ...:`)
+        pageContent = generatePage(teamCards);
+        writePage(pageContent);
       }
     });
 }
@@ -172,10 +164,6 @@ function getInternInfo() {
       const newInternCard = createInternCard(intern);
       teamCards.push(newInternCard); 
 
-      // console logs to check things
-      console.log("\n----\nHere is the newInternCard:");
-      console.log(newInternCard);
-
       // handle next choice is engineer
       if (internData.nextChoice === "Engineer") {
         console.log("--\nOkay, let's add an engineer:")
@@ -190,17 +178,17 @@ function getInternInfo() {
 
       // handle next choice is done
       if (internData.nextChoice === "I am done adding team members") {
-        console.log("\n----\nWe are done adding team members. Here are the team cards:")
-        console.log(teamCards);
-        console.log(`There are ${teamCards.length} members on the team`)
+        console.log("\x1b[36m%s\x1b[0m", `\n----\nYou added ${teamCards.length} team members. Generating team page ...`)
+        pageContent = generatePage(teamCards);
+        writePage(pageContent);
       }
-
     });
 }
 
 // runs app
 function init() {
-  console.log("====\nWelcome! Let's build your team:\n====");
+  console.log("\x1b[36m%s\x1b[0m", "====\nWelcome! Let's build your team:\n====");
+  // console.log("====\nWelcome! Let's build your team:\n====");
   getManagerInfo();
 }
 
