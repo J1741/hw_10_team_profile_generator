@@ -1,4 +1,3 @@
-// use inquirer
 const inquirer = require('inquirer');
 
 // import classes from lib files
@@ -12,9 +11,8 @@ const Intern = require('./lib/Intern');
 // create team array
 const team = [];
 
-// get manager info add manager to team
+// gets manager info, appends to team, and handles next choice
 function getManagerInfo() {
-  // console.log("Welcome! Please build your team:");
   inquirer
     .prompt([
       {
@@ -39,25 +37,139 @@ function getManagerInfo() {
       },
       {
         type: "list",
-        name: "choiceInput",
+        name: "nextChoice",
         message: "What type of team member would you like to add next?",
         choices: ['Engineer', 'Intern', 'I am done adding team members']
       }
     ])
     .then(managerData => {
-      const manager = new Manager(
-        managerData.nameInput,
-        managerData.idInput,
-        managerData.emailInput,
-        managerData.officeNumberInput);
+      const manager = new Manager(managerData.nameInput, managerData.idInput, managerData.emailInput, managerData.officeNumberInput);
       team.push(manager);
-      console.log(team);
+      // handle next choice is engineer
+      if (managerData.nextChoice === "Engineer") {
+        console.log("--\nOkay, let's add an engineer:")
+        getEngineerInfo();
+      }
+      // handle next choice is intern
+      if (managerData.nextChoice === "Intern") {
+        console.log("--\nOkay, let's add an intern:")
+        getInternInfo();
+      }
+      // handle next choice is done
+      if (managerData.nextChoice === "I am done adding team members") {
+        console.log("We are done adding team members. Here is the team:")
+        console.log(team);
+      }
     });
 } 
 
+// gets engineer info, appends to team, and handles next choice
+function getEngineerInfo() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "nameInput",
+        message: "What is the engineer's name?"
+      },
+      {
+        type: "input",
+        name: "idInput",
+        message: "What is the engineer's employee ID?"
+      },
+      {
+        type: "input",
+        name: "emailInput",
+        message: "What is the engineer's email address?"
+      },
+      {
+        type: "input",
+        name: "githubInput",
+        message: "What is the engineer's GitHub username?"
+      },
+      {
+        type: "list",
+        name: "nextChoice",
+        message: "What type of team member would you like to add next?",
+        choices: ['Engineer', 'Intern', 'I am done adding team members']
+      }
+    ])
+    .then(engineerData => {
+      const engineer = new Engineer(engineerData.nameInput, engineerData.idInput, engineerData.emailInput, engineerData.githubInput);
+      team.push(engineer);
+      // handle next choice is engineer
+      if (engineerData.nextChoice === "Engineer") {
+        console.log("--\nOkay, let's add an engineer:")
+        getEngineerInfo();
+      }
+      // handle next choice is intern
+      if (engineerData.nextChoice === "Intern") {
+        console.log("--\nOkay, let's add an intern:")
+        getInternInfo();
+      }
+      // handle next choice is done
+      if (engineerData.nextChoice === "I am done adding team members") {
+        console.log("--\nWe are done adding team members. Here is the team:")
+        console.log(team);
+      }
+    });
+}
+
+// gets intern info, appends to team, and handles next choice
+function getInternInfo() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "nameInput",
+        message: "What is the intern's name?"
+      },
+      {
+        type: "input",
+        name: "idInput",
+        message: "What is the intern's employee ID?"
+      },
+      {
+        type: "input",
+        name: "emailInput",
+        message: "What is the intern's email address?"
+      },
+      {
+        type: "input",
+        name: "schoolInput",
+        message: "What is the intern's school?"
+      },
+      {
+        type: "list",
+        name: "nextChoice",
+        message: "What type of team member would you like to add next?",
+        choices: ['Engineer', 'Intern', 'I am done adding team members']
+      }
+    ])
+    .then(internData => {
+      const intern = new Intern(internData.nameInput, internData.idInput, internData.emailInput, internData.schoolInput);
+      team.push(intern);
+      // handle next choice is engineer
+      if (internData.nextChoice === "Engineer") {
+        console.log("--\nOkay, let's add an engineer:")
+        getEngineerInfo();
+      }
+      // handle next choice is intern
+      if (internData.nextChoice === "Intern") {
+        console.log("--\nOkay, let's add an intern:")
+        getInternInfo();
+      }
+      // handle next choice is done
+      if (internData.nextChoice === "I am done adding team members") {
+        console.log("We are done adding team members. Here is the team:")
+        console.log(team);
+      }
+    });
+}
+
 // runs app
 function init() {
-  console.log("----\nWelcome! Please build your team:\n----");
+  console.log("====\nWelcome! Let's build your team:\n====");
   getManagerInfo();
 }
 
