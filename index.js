@@ -1,17 +1,17 @@
 const inquirer = require('inquirer');
+const fs = require('fs');
 
-// import classes from lib files
+// get access to constructor functions
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-// import HTML generate function
-// const generate = require('./src/generateHTML');
+// get access to html generator functions
+const {createManagerCard, createEngineerCard, createInternCard, generatePage} = require("./src/generateHTML");
 
-// create team array
-const team = [];
+const teamCards = [];
 
-// gets manager info, appends to team, and handles next choice
+// gets manager info, creates card, and handles next choice
 function getManagerInfo() {
   inquirer
     .prompt([
@@ -43,22 +43,32 @@ function getManagerInfo() {
       }
     ])
     .then(managerData => {
+      // create manager object and card, append to array
       const manager = new Manager(managerData.nameInput, managerData.idInput, managerData.emailInput, managerData.officeNumberInput);
-      team.push(manager);
+      const newManagerCard = createManagerCard(manager);
+      teamCards.push(newManagerCard);
+
+      // console logs to check things
+      console.log("\n----\nHere is the newManagerCard:");
+      console.log(newManagerCard);
+
       // handle next choice is engineer
       if (managerData.nextChoice === "Engineer") {
         console.log("--\nOkay, let's add an engineer:")
         getEngineerInfo();
       }
+
       // handle next choice is intern
       if (managerData.nextChoice === "Intern") {
         console.log("--\nOkay, let's add an intern:")
         getInternInfo();
       }
+
       // handle next choice is done
       if (managerData.nextChoice === "I am done adding team members") {
-        console.log("We are done adding team members. Here is the team:")
-        console.log(team);
+        console.log("\n----\nWe are done adding team members. Here are the team cards:")
+        console.log(teamCards);
+        console.log(`There are ${teamCards.length} members on the team`)
       }
     });
 } 
@@ -95,22 +105,32 @@ function getEngineerInfo() {
       }
     ])
     .then(engineerData => {
+      // create engineer object and card, append to array
       const engineer = new Engineer(engineerData.nameInput, engineerData.idInput, engineerData.emailInput, engineerData.githubInput);
-      team.push(engineer);
+      const newEngineerCard = createEngineerCard(engineer);
+      teamCards.push(newEngineerCard);
+
+      // console logs to check things
+      console.log("\n----\nHere is the newEngineerCard:");
+      console.log(newEngineerCard);
+
       // handle next choice is engineer
       if (engineerData.nextChoice === "Engineer") {
         console.log("--\nOkay, let's add an engineer:")
         getEngineerInfo();
       }
+
       // handle next choice is intern
       if (engineerData.nextChoice === "Intern") {
         console.log("--\nOkay, let's add an intern:")
         getInternInfo();
       }
+
       // handle next choice is done
       if (engineerData.nextChoice === "I am done adding team members") {
-        console.log("--\nWe are done adding team members. Here is the team:")
-        console.log(team);
+        console.log("\n----\nWe are done adding team members. Here are the team cards:")
+        console.log(teamCards);
+        console.log(`There are ${teamCards.length} members on the team`)
       }
     });
 }
@@ -147,23 +167,34 @@ function getInternInfo() {
       }
     ])
     .then(internData => {
+      // create intern object and card, append to array
       const intern = new Intern(internData.nameInput, internData.idInput, internData.emailInput, internData.schoolInput);
-      team.push(intern);
+      const newInternCard = createInternCard(intern);
+      teamCards.push(newInternCard); 
+
+      // console logs to check things
+      console.log("\n----\nHere is the newInternCard:");
+      console.log(newInternCard);
+
       // handle next choice is engineer
       if (internData.nextChoice === "Engineer") {
         console.log("--\nOkay, let's add an engineer:")
         getEngineerInfo();
       }
+
       // handle next choice is intern
       if (internData.nextChoice === "Intern") {
         console.log("--\nOkay, let's add an intern:")
         getInternInfo();
       }
+
       // handle next choice is done
       if (internData.nextChoice === "I am done adding team members") {
-        console.log("We are done adding team members. Here is the team:")
-        console.log(team);
+        console.log("\n----\nWe are done adding team members. Here are the team cards:")
+        console.log(teamCards);
+        console.log(`There are ${teamCards.length} members on the team`)
       }
+
     });
 }
 
